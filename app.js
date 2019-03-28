@@ -2,7 +2,11 @@ import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
+/**
+ * https://expressjs.com/en/4x/api.html#express-json-middleware
+ * express v4.16.0 이상에 built in 되었다고 한다!
+ */
+// import bodyParser from "body-parser";
 
 import globalRouter from "./routers/globalRouter";
 import videoRouter from "./routers/videoRouter";
@@ -15,8 +19,8 @@ const app = express();
 app.set('view engine', 'pug');
 app.use(cookieParser());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("dev"));
 
