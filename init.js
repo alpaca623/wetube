@@ -2,7 +2,8 @@ import './db';
 import app from "./app";
 import dotenv from 'dotenv';
 // 그냥 import만 시키면 되는건감..?
-import './models/Videos';
+import './models/Video';
+import './models/Comment';
 
 dotenv.config();
 

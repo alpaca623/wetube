@@ -15,7 +15,12 @@ const VideoSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
   comments: [
+    //  video는 comment model과 relation을 가진다.
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment"
