@@ -1,14 +1,16 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import dotenv from 'dotenv';
+dotenv.config();
 
-mongoose.connect('mongodb://localhost:27017/we-tube',{
-  useNewUrlParser:true,
-  useFindAndModify:false
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useFindAndModify: false
 });
 
 const db = mongoose.connection;
 
-const handleOpen = () => console.log('✅ Open db connection!!');
-const handleError = (error) => console.log(`❌ Error Occur : ${error}`)
+const handleOpen = () => console.log("✅ Open db connection!!");
+const handleError = error => console.log(`❌ Error Occur : ${error}`);
 
-db.once('open', handleOpen);
-db.on('error', handleError);
+db.once("open", handleOpen);
+db.on("error", handleError);
