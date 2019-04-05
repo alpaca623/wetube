@@ -31,5 +31,4 @@ const VideoSchema = new mongoose.Schema({
 // 선언된 스키마를 이용하여 모델을 선언한다.
 
 const model = mongoose.model("Video", VideoSchema);
-
 export default model;
