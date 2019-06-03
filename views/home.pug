@@ -1,6 +1,10 @@
 extends layouts/main.pug
+include mixins/videoBlock
 
 block content
     each item in videos
-        h1= item.title
-        p= item.description
+        //- https://pugjs.org/language/mixins.html : 좀 불친절한 설명이지만.. 참고
+        +videoBlock({
+            title:item.title,
+            videoFile:item.videoFile,
+            views:item.views})
