@@ -5,6 +5,7 @@ block content
     each item in videos
         //- https://pugjs.org/language/mixins.html : 좀 불친절한 설명이지만.. 참고
         +videoBlock({
+            id:item.id,
             title:item.title,
             videoFile:item.videoFile,
             views:item.views})
