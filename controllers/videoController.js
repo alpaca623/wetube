@@ -1,11 +1,10 @@
-import routes from '../routes';
+import routes from "../routes";
 import Video from "../models/Video";
 
 export const home = async (req, res) => {
   try {
     // find 메서드는 mongoose.model쪽에서 제공한다.
     const videos = await Video.find({});
-    console.log(videos);
     res.render("home", { pageTitle: "Home", videos });
   } catch (e) {
     console.log(error);
@@ -39,8 +38,19 @@ export const postUpload = async (req, res) => {
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
-export const videoDetail = (req, res) =>
-  res.render("videoDetail", { pageTitle: "Video detail" });
+export const videoDetail = async (req, res) => {
+  // url에서 비디오의 id를 받아온다.
+  const {
+    params: { id }
+  } = req;
+  try{
+    // DB에서 id에 해당하는 비디오를 가져와서 정보를 전달한다(fileurl, title, description, views 등)
+    const video = await Video.findById(id);
+    res.render("videoDetail", { pageTitle: "Video detail", video });
+  }catch(e){
+    res.render(routes.home);
+  }
+};
 
 export const editVideo = (req, res) =>
   res.render("editVideo", { pageTitle: "Edit video" });
