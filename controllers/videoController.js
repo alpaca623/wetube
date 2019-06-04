@@ -1,5 +1,14 @@
-export const home = (req, res) =>
-  res.render("home", { pageTitle: "Home", videos });
+import Video from "../models/Video";
+
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({});
+    res.render("home", { pageTitle: "Home", videos });
+  } catch (e) {
+    console.log(error);
+    res.render("home", { pageTitle: "Home", videos: [] });
+  }
+};
 
 export const search = (req, res) => {
   const {
@@ -11,10 +20,10 @@ export const search = (req, res) => {
 export const getUpload = (req, res) =>
   res.render("upload", { pageTitle: "Upload" });
 
-export const postUpload = (req, res) =>{
+export const postUpload = (req, res) => {
   // To do : video upload and redirect video detail
   res.redirect(routes.videoDetail());
-}
+};
 
 export const videoDetail = (req, res) =>
   res.render("videoDetail", { pageTitle: "Video detail" });
