@@ -1,3 +1,4 @@
+import './db';
 import app from "./index";
 
 const PORT = 4000;
