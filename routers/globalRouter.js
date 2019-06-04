@@ -1,5 +1,5 @@
 import express from "express";
-import routes from "../route";
+import routes from "../routes";
 import { home, search } from "../controllers/videoController";
 import {
   logout,

@@ -1,5 +1,5 @@
 import express from "express";
-import routes from "../route";
+import routes from "../routes";
 import {
   home,
   videoDetail,
@@ -8,10 +8,12 @@ import {
   postUpload,
   getUpload
 } from "../controllers/videoController";
+import { uploadVideo } from "../localMiddleware";
 
 const videoRouter = express.Router();
 
-videoRouter.post(routes.upload, postUpload);
+// 중간에 multer를 통해 비디오 업로드를 처리한다.
+videoRouter.post(routes.upload, uploadVideo, postUpload);
 videoRouter.get(routes.upload, getUpload);
 
 videoRouter.get(routes.videos, home);
