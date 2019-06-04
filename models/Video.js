@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// 스키마 생성
 const videoSchema = new mongoose.Schema({
   fileUrl: {
     type: String,
@@ -20,11 +21,12 @@ const videoSchema = new mongoose.Schema({
   },
   comments: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Comment"
     }
-  ]
+  ],
 });
 
+// 스키마 모델에 적용
 const model = mongoose.model("Video", videoSchema);
 export default model;
