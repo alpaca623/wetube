@@ -3,10 +3,11 @@ import routes from "../routes";
 import {
   home,
   videoDetail,
-  editVideo,
   deleteVideo,
   postUpload,
-  getUpload
+  getUpload,
+  getEditVideo,
+  postEditVideo
 } from "../controllers/videoController";
 import { uploadVideo } from "../localMiddleware";
 
@@ -16,9 +17,13 @@ const videoRouter = express.Router();
 videoRouter.post(routes.upload, uploadVideo, postUpload);
 videoRouter.get(routes.upload, getUpload);
 
+// 비디오 내용 수정(제목, 설명)
+videoRouter.get(routes.editVideo(), getEditVideo);
+videoRouter.post(routes.editVideo(), postEditVideo);
+
 videoRouter.get(routes.videos, home);
 videoRouter.get(routes.videoDetail(), videoDetail);
-videoRouter.get(routes.editVideo, editVideo);
-videoRouter.get(routes.deleteVideo, deleteVideo);
+
+videoRouter.get(routes.deleteVideo(), deleteVideo);
 
 export default videoRouter;

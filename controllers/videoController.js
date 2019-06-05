@@ -43,17 +43,50 @@ export const videoDetail = async (req, res) => {
   const {
     params: { id }
   } = req;
-  try{
+  try {
     // DB에서 id에 해당하는 비디오를 가져와서 정보를 전달한다(fileurl, title, description, views 등)
     const video = await Video.findById(id);
     res.render("videoDetail", { pageTitle: "Video detail", video });
-  }catch(e){
+  } catch (e) {
     res.render(routes.home);
   }
 };
 
-export const editVideo = (req, res) =>
-  res.render("editVideo", { pageTitle: "Edit video" });
+export const getEditVideo = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    res.render("editVideo", { pageTitle: "Edit video", video });
+  } catch (e) {
+    res.status(400);
+  }
+};
 
-export const deleteVideo = (req, res) =>
-  res.render("deleteVideo", { pageTitle: "Delete Video" });
+export const postEditVideo = async (req, res) => {
+  const {
+    params: { id },
+    body: { title, description }
+  } = req;
+  try {
+    await Video.findByIdAndUpdate(id, { title, description });
+    res.redirect(routes.videoDetail(id));
+  } catch (e) {
+    console.log(e);
+    // res.redirect(routes.editVideo());
+  }
+};
+
+export const deleteVideo = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    await Video.findByIdAndRemove(id);
+  } catch (e) {
+  } finally {
+    res.redirect(routes.home);
+  }
+  // res.render("deleteVideo", { pageTitle: "Delete Video" });
+};
