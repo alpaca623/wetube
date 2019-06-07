@@ -4,7 +4,7 @@ import Video from "../models/Video";
 export const home = async (req, res) => {
   try {
     // find 메서드는 mongoose.model쪽에서 제공한다.
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ _id: -1 });
     res.render("home", { pageTitle: "Home", videos });
   } catch (e) {
     console.log(e);
@@ -12,12 +12,20 @@ export const home = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
+export const search = async (req, res) => {
   const {
     query: { term: searchingBy }
   } = req;
-  const videos = Video.find({});
-  res.render("search", { pageTitle: 'Search', searchingBy, videos });
+  let videos = [];
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" }
+    });
+  } catch (e) {
+    res.status(400);
+  } finally {
+    res.render("search", { pageTitle: "Search", searchingBy, videos });
+  }
 };
 
 export const getUpload = (req, res) =>

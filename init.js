@@ -1,10 +1,12 @@
 import './db';
-import app from "./index";
-import dotenv from 'dotenv';
-dotenv.config();
+
 // 저장된 스키마 불러오기
 import './models/Video';
 import './models/Comment';
+
+import dotenv from 'dotenv';
+import app from "./index";
+dotenv.config();
 
 const PORT = process.env.PORT;
 
