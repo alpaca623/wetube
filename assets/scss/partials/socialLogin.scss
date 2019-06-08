@@ -1,0 +1,26 @@
+.social-login {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  button {
+    width: 30%;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 4px;
+    font-size: 13px;
+  }
+
+  button:nth-child(1) {
+    background-color: #454447;
+    color: white;
+  }
+  button:last-child {
+    background-color: #3d5997;
+    color: white;
+  }
+  button:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}

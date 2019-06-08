@@ -1,0 +1,54 @@
+.header{
+    background-color:$red;
+    margin-bottom:50px;
+    .header__warpper{
+        padding:5px 0;
+        max-width:1200px;
+        margin : 0 auto;
+        align-items: center;
+        // grid 방식 선언
+        display:grid;
+        // 가로정렬을 해준다.
+        // https://developer.mozilla.org/ko/docs/Web/CSS/grid-template-columns 참고
+        // fr 단위에 대해서 : https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Grid_Layout/Basic_concepts_of_grid_layout
+        grid-template-columns: repeat(3,1fr);
+        .header__column{
+            i{
+                color:white;
+                font-size:40px;
+            }
+            &:nth-child(2){
+                width:70%;
+                justify-self: center;
+            }
+            &:last-child{
+                width:100%;
+                justify-self: center;
+            }
+            ul{
+                display:flex;
+                color:white;
+                font-weight:600;
+                text-transform: uppercase;
+                li:not(:last-child){
+                    margin-right:15px;
+                }
+            }
+            form{
+                width:100%;
+                input{
+                    width:100%;
+                    padding:7px 10px;
+                    border-radius:5px;
+                    font-size:14px;
+                    color:$black;
+                    &::placeholder{
+                        font-weight: 300;
+                        // color:rgba(0,0,0,0,7);
+                        color: rgba(0, 0, 0, 0.7);
+                    }
+                }
+            }
+        }
+    }
+}

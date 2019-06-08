@@ -1,0 +1,22 @@
+.form-container {
+  form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    input{
+        margin:10px 0;
+        height:40px;
+        width:30%;
+        border-radius:5px;
+        box-shadow: 1px 1px 4px grey;
+        font-size:13px;
+        &:last-child{
+            background-color:#4195DC;
+            color:white;
+        }
+    }
+    // background-color:green;
+  }
+}
