@@ -12,4 +12,4 @@ const commentSchema = mongoose.Schema({
 });
 
 const model = mongoose.model("Comment", commentSchema);
-export default commentSchema;
+export default model;
