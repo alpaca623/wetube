@@ -18,6 +18,7 @@ export const postJoin = async (req, res, next) => {
         name,
         email
       });
+      
       // 모델.. 등록 음..
       // Convenience method to register a new user instance with a given password
       await User.register(user, password);
