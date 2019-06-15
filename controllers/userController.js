@@ -18,7 +18,7 @@ export const postJoin = async (req, res, next) => {
         name,
         email
       });
-      
+
       // 모델.. 등록 음..
       // Convenience method to register a new user instance with a given password
       await User.register(user, password);
@@ -42,8 +42,38 @@ export const postLogin = passport.authenticate("local", {
 });
 // login요청이 들어오면 사용자 인증 결과에 따라 페이지를 redirect한다.
 
-export const logout = (req, res) =>
-  res.render("logout", { pageTitle: "Logout" });
+export const getGithubLogin = passport.authenticate("github");
+
+export const postGithubLogin = (req, res) => {
+  res.redirect(routes.home);
+};
+
+export const githubAuthCallbackFunc = async (_, __, profile, cb) => {
+  const {
+    _json: { id, avatar_url, name, email }
+  } = profile;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      return cb(null, user);
+    }
+    // 6/15 - not find user.get function - 동기 처리를 하지 않아서 발생하는 문제이다.
+    const newUser = await User.create({
+      name,
+      email,
+      avatarUrl: avatar_url,
+      githubId: id
+    });
+    return cb(null, newUser);
+  } catch (e) {
+    return cb(e);
+  }
+};
+
+export const logout = (req, res) => {
+  req.logout();
+  res.redirect(routes.home);
+};
 
 export const userDetail = (req, res) =>
   res.render("userDetail", { pageTitle: "User Detail" });

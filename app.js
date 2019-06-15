@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
 
 import cookieParser from "cookie-parser";
@@ -20,9 +19,6 @@ const app = express();
 
 const CokieStore = MongoStore(expressSession);
 
-// 환경변수 불러오기 >> 이후 process.env 변수로 환경변수에 접근한다.
-dotenv.config();
-
 app.use(helmet());
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
@@ -33,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(
   expressSession({
-    secret: process.env.COOKIE_SECRET,    // 쿠키 암호화 처리
+    secret: process.env.COOKIE_SECRET, // 쿠키 암호화 처리
     resave: false,
     saveUninitialized: false,
     store: new CokieStore({ mongooseConnection: mongoose.connection })
