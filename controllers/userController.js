@@ -50,7 +50,7 @@ export const postGithubLogin = (req, res) => {
 
 export const githubAuthCallbackFunc = async (_, __, profile, cb) => {
   const {
-    _json: { id, avatar_url, name, email }
+    _json: { id, avatar_url: avatarUrl, name, email }
   } = profile;
   try {
     const user = await User.findOne({ email });
@@ -61,7 +61,7 @@ export const githubAuthCallbackFunc = async (_, __, profile, cb) => {
     const newUser = await User.create({
       name,
       email,
-      avatarUrl: avatar_url,
+      avatarUrl,
       githubId: id
     });
     return cb(null, newUser);
@@ -73,6 +73,11 @@ export const githubAuthCallbackFunc = async (_, __, profile, cb) => {
 export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
+};
+
+export const getMe = (req, res) => {
+  // req에서 받는 user 정보는 현재 로그인 한 사람의 user 데이터이다.
+  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
 };
 
 export const userDetail = (req, res) =>
